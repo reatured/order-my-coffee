@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import './App.css';
 
 const API_BASE = "https://order-coffee-production.up.railway.app";
 
 function CoffeeCard({ coffee, onClick, quantity, setQuantity }) {
   return (
-    <div style={{ border: '1px solid #ccc', borderRadius: 8, padding: 16, margin: 8, width: 220, textAlign: 'center', boxShadow: '0 2px 8px #eee', cursor: 'pointer' }} onClick={onClick}>
-      <img src={`/images/${coffee.image}`} alt={coffee.name} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 8 }} />
-      <h2 style={{ margin: '12px 0 8px 0' }}>{coffee.name}</h2>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
-        <button type="button" onClick={e => { e.stopPropagation(); setQuantity(Math.max(1, quantity - 1)); }} style={{ width: 32, height: 32 }}>-</button>
-        <span style={{ margin: '0 12px' }}>{quantity}</span>
-        <button type="button" onClick={e => { e.stopPropagation(); setQuantity(quantity + 1); }} style={{ width: 32, height: 32 }}>+</button>
+    <div className="coffee-card" onClick={onClick}>
+      <img src={`${process.env.PUBLIC_URL}/images/${coffee.image}`} alt={coffee.name} />
+      <h2>{coffee.name}</h2>
+      <div className="quantity-controls">
+        <button type="button" onClick={e => { e.stopPropagation(); setQuantity(Math.max(1, quantity - 1)); }}>-</button>
+        <span>{quantity}</span>
+        <button type="button" onClick={e => { e.stopPropagation(); setQuantity(quantity + 1); }}>+</button>
       </div>
     </div>
   );
@@ -35,9 +36,9 @@ function CoffeeList() {
   }, []);
 
   return (
-    <div style={{ maxWidth: 900, margin: '2rem auto', fontFamily: 'sans-serif' }}>
+    <div className="coffee-list-container">
       <h1>Order Coffee</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="coffee-cards">
         {coffees.map(coffee => (
           <CoffeeCard
             key={coffee.id}
@@ -58,6 +59,7 @@ function OrderPage() {
   const [coffee, setCoffee] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
   const [message, setMessage] = useState('');
 
@@ -81,7 +83,8 @@ function OrderPage() {
       body: JSON.stringify({
         name,
         coffeeId: parseInt(id),
-        notes: notes + ` (Quantity: ${quantity})`
+        notes,
+        email
       })
     })
       .then(res => res.json())
@@ -94,8 +97,8 @@ function OrderPage() {
   if (!coffee) return <div>Loading...</div>;
 
   return (
-    <div style={{ maxWidth: 400, margin: '2rem auto', fontFamily: 'sans-serif' }}>
-      <img src={`/images/${coffee.image}`} alt={coffee.name} style={{ width: '100%', height: 180, objectFit: 'cover', borderRadius: 8 }} />
+    <div className="order-form-container">
+      <img src={`${process.env.PUBLIC_URL}/images/${coffee.image}`} alt={coffee.name} />
       <h2>{coffee.name}</h2>
       <p>Quantity: {quantity}</p>
       <form onSubmit={handleSubmit}>
@@ -104,17 +107,22 @@ function OrderPage() {
           value={name}
           onChange={e => setName(e.target.value)}
           required
-          style={{ width: '100%', marginBottom: 8, padding: 8 }}
+        />
+        <input
+          placeholder="Your email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+          type="email"
         />
         <input
           placeholder="Notes"
           value={notes}
           onChange={e => setNotes(e.target.value)}
-          style={{ width: '100%', marginBottom: 8, padding: 8 }}
         />
-        <button type="submit" style={{ width: '100%', padding: 8 }}>Send Order</button>
+        <button type="submit">Send Order</button>
       </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
+      {message && <p className="success-message">{message}</p>}
     </div>
   );
 }

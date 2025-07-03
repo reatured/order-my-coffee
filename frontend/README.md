@@ -1,3 +1,36 @@
+# Order Your Coffee
+
+This is a modern online coffee ordering web app built with React and deployed on GitHub Pages.
+
+## Features
+- Browse and select coffee drinks with beautiful cards
+- Adjust quantity and add notes for your order
+- Enter your name and email to receive a confirmation receipt
+- Orders are sent to the backend, which notifies the admin and (optionally) emails the customer
+- Fully responsive, warm and inviting design
+- Deployed live at: https://reatured.github.io/order-my-coffee
+
+## How it works
+1. Select your coffee and quantity
+2. Click a card to order
+3. Fill in your name, email, and any notes
+4. Submit your order and receive a confirmation email (if email provided)
+
+## Tech Stack
+- React (Create React App)
+- React Router (HashRouter for GitHub Pages compatibility)
+- Custom CSS for a modern, coffee-themed UI
+- GitHub Pages for static hosting
+
+## Development
+- `npm start` to run locally
+- `npm run build` to build for production
+- `npm run deploy` to deploy to GitHub Pages
+
+---
+
+**Order Your Coffee** is a demo project for a full-stack coffee ordering experience!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
