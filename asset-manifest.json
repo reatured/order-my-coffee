@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/order-my-coffee/static/css/main.e6c13ad2.css",
+    "main.js": "/order-my-coffee/static/js/main.bbb2913c.js",
+    "static/js/453.670e15c7.chunk.js": "/order-my-coffee/static/js/453.670e15c7.chunk.js",
+    "index.html": "/order-my-coffee/index.html",
+    "main.e6c13ad2.css.map": "/order-my-coffee/static/css/main.e6c13ad2.css.map",
+    "main.bbb2913c.js.map": "/order-my-coffee/static/js/main.bbb2913c.js.map",
+    "453.670e15c7.chunk.js.map": "/order-my-coffee/static/js/453.670e15c7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.bbb2913c.js"
+  ]
+}
