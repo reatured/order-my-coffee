@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useNavigate, useParams, useLocation } from 'react-router-dom';
 import './App.css';
 
 const API_BASE = "https://order-coffee-production.up.railway.app";
@@ -56,6 +56,7 @@ function CoffeeList() {
 function OrderPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [coffee, setCoffee] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState('');
@@ -70,10 +71,14 @@ function OrderPage() {
         const c = data.find(c => String(c.id) === id);
         setCoffee(c);
       });
-    // Get quantity from query param
-    const params = new URLSearchParams(window.location.search);
-    setQuantity(parseInt(params.get('quantity')) || 1);
   }, [id]);
+
+  useEffect(() => {
+    // Get quantity from query param whenever location changes
+    const params = new URLSearchParams(location.search);
+    const quantityFromUrl = parseInt(params.get('quantity')) || 1;
+    setQuantity(quantityFromUrl);
+  }, [location.search]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,13 +88,14 @@ function OrderPage() {
       body: JSON.stringify({
         name,
         coffeeId: parseInt(id),
+        quantity,
         notes,
         email
       })
     })
       .then(res => res.json())
       .then(data => {
-        setMessage('Order submitted! Redirecting...');
+        setMessage('Order submitted! Back to home...');
         setTimeout(() => navigate('/'), 1500);
       });
   };
@@ -100,7 +106,11 @@ function OrderPage() {
     <div className="order-form-container">
       <img src={`${process.env.PUBLIC_URL}/images/${coffee.image}`} alt={coffee.name} />
       <h2>{coffee.name}</h2>
-      <p>Quantity: {quantity}</p>
+      <div className="quantity-controls" style={{ marginBottom: '16px' }}>
+        <button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
+        <span>Quantity: {quantity}</span>
+        <button type="button" onClick={() => setQuantity(quantity + 1)}>+</button>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Your name"
