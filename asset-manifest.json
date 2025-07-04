@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/order-my-coffee/static/css/main.7cb1a17c.css",
-    "main.js": "/order-my-coffee/static/js/main.29ad7cc0.js",
+    "main.css": "/order-my-coffee/static/css/main.b986f76d.css",
+    "main.js": "/order-my-coffee/static/js/main.56d4ec78.js",
     "static/js/453.a0a45daf.chunk.js": "/order-my-coffee/static/js/453.a0a45daf.chunk.js",
     "index.html": "/order-my-coffee/index.html",
-    "main.7cb1a17c.css.map": "/order-my-coffee/static/css/main.7cb1a17c.css.map",
-    "main.29ad7cc0.js.map": "/order-my-coffee/static/js/main.29ad7cc0.js.map",
+    "main.b986f76d.css.map": "/order-my-coffee/static/css/main.b986f76d.css.map",
+    "main.56d4ec78.js.map": "/order-my-coffee/static/js/main.56d4ec78.js.map",
     "453.a0a45daf.chunk.js.map": "/order-my-coffee/static/js/453.a0a45daf.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7cb1a17c.css",
-    "static/js/main.29ad7cc0.js"
+    "static/css/main.b986f76d.css",
+    "static/js/main.56d4ec78.js"
   ]
 }
