@@ -1,103 +1,132 @@
-# Order Your Coffee
+# Order Your Coffee - Full Stack Coffee Ordering Application
 
-This is a modern online coffee ordering web app built with React and deployed on GitHub Pages.
+A modern, responsive web application for ordering coffee drinks with email confirmation and admin notifications.
 
-## Features
-- Browse and select coffee drinks with beautiful cards
-- Adjust quantity and add notes for your order
-- Enter your name and email to receive a confirmation receipt
-- Orders are sent to the backend, which notifies the admin and (optionally) emails the customer
-- Fully responsive, warm and inviting design
-- Deployed live at: https://reatured.github.io/order-my-coffee
+## 🌟 Features
 
-## How it works
-1. Select your coffee and quantity
-2. Click a card to order
-3. Fill in your name, email, and any notes
-4. Submit your order and receive a confirmation email (if email provided)
+### Frontend (React)
+- **Beautiful UI**: Modern, coffee-themed design with a clean, white palette and Poppins font
+- **Responsive Design**: Works perfectly on desktop (2x2 grid) and mobile (single column)
+- **Interactive Cards**: Browse coffee drinks with quantity controls and hover effects
+- **Order Form**: Easy-to-use form with name, email, and notes fields
+- **Guest Ordering**: Anyone can order by just entering their name and email (no login required)
+- **Optional Login/Register**: Users can create an account for a personalized experience
+- **Auto-filled Order Form**: Logged-in users have their name and email auto-filled and email field hidden
+- **Clickable Header Title**: Click the "Order Your Coffee" title to return to the home page
+- **GitHub Pages Deployment**: Live at https://reatured.github.io/order-my-coffee
 
-## Tech Stack
-- React (Create React App)
-- React Router (HashRouter for GitHub Pages compatibility)
-- Custom CSS for a modern, coffee-themed UI
-- GitHub Pages for static hosting
+### Backend Integration
+- **Order Processing**: Sends orders to backend API with all necessary details
+- **Email Confirmation**: Customers receive confirmation emails (if email provided)
+- **Admin Notifications**: Backend notifies admin of new orders
+- **API Endpoints**: 
+  - `GET /coffees` - Fetch available coffee drinks
+  - `POST /order` - Submit new order with customer details
+  - `POST /login` / `POST /register` / `POST /logout` / `GET /me` - User authentication (optional)
 
-## Development
-- `npm start` to run locally
-- `npm run build` to build for production
-- `npm run deploy` to deploy to GitHub Pages
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19** with Create React App
+- **React Router** (HashRouter for GitHub Pages compatibility)
+- **Custom CSS** with modern design principles
+- **Responsive Grid Layout** using CSS Grid and Flexbox
+- **GitHub Pages** for static hosting
+
+### Backend
+- **API Server** at https://order-coffee-production.up.railway.app
+- **Email Service** for order confirmations and admin notifications
+- **Order Management** with customer details and notes
+
+## 📱 User Experience
+
+1. **Browse**: View coffee drinks in an attractive card layout
+2. **Select**: Choose quantity using +/- buttons on each card
+3. **Order**: Click card to proceed to order form
+4. **Details**: Enter name, email, and any special notes (or auto-filled if logged in)
+5. **Confirm**: Submit order and receive email confirmation
+6. **Admin**: Backend automatically notifies admin of new orders
+7. **Login/Register (Optional)**: Users can log in for a personalized experience
+
+## 🎨 Design Features
+
+- **Clean White Palette**: Modern, minimal, and professional look
+- **Card Hover Effects**: Subtle animations and shadow changes
+- **1:1 Image Aspect Ratio**: Perfect square coffee images
+- **Mobile-First**: Responsive design that works on all devices
+- **Modern Typography**: Poppins font for all text
+
+## 🚀 Getting Started
+
+### Frontend Development
+```bash
+cd frontend
+npm install
+npm start
+```
+
+### Production Build
+```bash
+npm run build
+npm run deploy  # Deploys to GitHub Pages
+```
+
+### Backend API
+The backend is hosted on Railway and handles:
+- Coffee menu data
+- Order processing
+- Email notifications
+- Admin alerts
+
+## 📁 Project Structure
+
+```
+order-my-coffee/
+├── frontend/                 # React application
+│   ├── public/
+│   │   ├── images/          # Coffee drink images
+│   │   └── index.html       # Main HTML template
+│   ├── src/
+│   │   ├── App.js           # Main React component
+│   │   ├── App.css          # Styling
+│   │   └── index.js         # App entry point
+│   └── package.json         # Dependencies and scripts
+└── README.md                # This file
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+- `API_BASE`: Backend API URL (currently Railway deployment)
+- `PUBLIC_URL`: GitHub Pages base path for assets
+
+### Dependencies
+- `react-router-dom`: Client-side routing
+- `gh-pages`: GitHub Pages deployment
+
+## 🌐 Live Demo
+
+**Frontend**: https://reatured.github.io/order-my-coffee
+
+## 📧 Order Flow
+
+1. Customer selects coffee and quantity
+2. Fills out order form with personal details (or auto-filled if logged in)
+3. Frontend sends POST request to `/order` endpoint
+4. Backend processes order and sends emails:
+   - Confirmation to customer (if email provided)
+   - Notification to admin
+5. Customer receives success message and is redirected
+
+## 🎯 Future Enhancements
+
+- [ ] Add more coffee varieties
+- [ ] Implement order history
+- [ ] Add payment processing
+- [ ] Real-time order tracking
+- [ ] Customer account system
+- [ ] Admin dashboard
 
 ---
 
-**Order Your Coffee** is a demo project for a full-stack coffee ordering experience!
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Order Your Coffee** - A complete full-stack coffee ordering experience! ☕
