@@ -1,13 +1,14 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
-	"context"
 )
 
 // RegisterHandler handles user registration.
@@ -29,6 +30,8 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	_, err = DB.Exec(`INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)`, req.Username, req.Email, string(hash))
 	if err != nil {
+		// Log the actual error for debugging
+		fmt.Printf("Database error during registration: %v\n", err)
 		http.Error(w, "Username or email already exists", http.StatusConflict)
 		return
 	}
