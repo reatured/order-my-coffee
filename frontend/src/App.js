@@ -19,16 +19,19 @@ function LoginPage() {
       credentials: 'include',
       body: JSON.stringify({ username, password })
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        setMessage('Login successful!');
-        setTimeout(() => navigate('/'), 1000);
+    .then(res => {
+      if (res.ok) {
+        return res.json().then(data => {
+          setMessage('Login successful!');
+          setTimeout(() => navigate('/'), 1000);
+        });
+      } else if (res.status === 401) {
+        setMessage('Invalid username or password. Please try again.');
       } else {
-        setMessage(data.error || 'Login failed');
+        setMessage('Login failed. Please try again.');
       }
     })
-    .catch(err => setMessage('Login failed'));
+    .catch(err => setMessage('Login failed. Please try again.'));
   };
 
   return (
@@ -77,16 +80,19 @@ function RegisterPage() {
       credentials: 'include',
       body: JSON.stringify({ username, email, password })
     })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        setMessage('Registration successful!');
-        setTimeout(() => navigate('/'), 1000);
+    .then(res => {
+      if (res.ok) {
+        return res.json().then(data => {
+          setMessage('Registration successful!');
+          setTimeout(() => navigate('/'), 1000);
+        });
+      } else if (res.status === 409) {
+        setMessage('Username or email already exists. Please try a different one.');
       } else {
-        setMessage(data.error || 'Registration failed');
+        setMessage('Registration failed. Please try again.');
       }
     })
-    .catch(err => setMessage('Registration failed'));
+    .catch(err => setMessage('Registration failed. Please try again.'));
   };
 
   return (
