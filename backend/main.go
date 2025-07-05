@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -47,9 +48,36 @@ func main() {
 			http.Error(w, fmt.Sprintf("Database error: %v", err), http.StatusInternalServerError)
 			return
 		}
+		
+		// Check table structure
+		rows, err := DB.Query(`
+			SELECT column_name, data_type, is_nullable, column_default
+			FROM information_schema.columns 
+			WHERE table_name = 'users' 
+			ORDER BY ordinal_position
+		`)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Schema query error: %v", err), http.StatusInternalServerError)
+			return
+		}
+		defer rows.Close()
+		
+		var columns []map[string]interface{}
+		for rows.Next() {
+			var colName, dataType, isNullable, colDefault sql.NullString
+			rows.Scan(&colName, &dataType, &isNullable, &colDefault)
+			columns = append(columns, map[string]interface{}{
+				"name": colName.String,
+				"type": dataType.String,
+				"nullable": isNullable.String,
+				"default": colDefault.String,
+			})
+		}
+		
 		json.NewEncoder(w).Encode(map[string]interface{}{
 			"user_count": count,
 			"status": "Database connected successfully",
+			"table_structure": columns,
 		})
 	}))
 	// Add your /coffees handler as needed, e.g.:
