@@ -59,6 +59,7 @@ function LoginPage() {
 // Register Page Component
 function RegisterPage() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -74,7 +75,7 @@ function RegisterPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, email, password })
     })
     .then(res => res.json())
     .then(data => {
@@ -96,6 +97,13 @@ function RegisterPage() {
           placeholder="Username"
           value={username}
           onChange={e => setUsername(e.target.value)}
+          required
+        />
+        <input
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
         <input
