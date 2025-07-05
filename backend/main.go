@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -37,6 +38,20 @@ func main() {
 	mux.HandleFunc("/logout", withCORS(LogoutHandler))
 	mux.HandleFunc("/me", withCORS(MeHandler))
 	mux.HandleFunc("/order", withCORS(OrderHandler))
+	
+	// Debug route to check database
+	mux.HandleFunc("/debug/db", withCORS(func(w http.ResponseWriter, r *http.Request) {
+		var count int
+		err := DB.QueryRow("SELECT COUNT(*) FROM users").Scan(&count)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Database error: %v", err), http.StatusInternalServerError)
+			return
+		}
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"user_count": count,
+			"status": "Database connected successfully",
+		})
+	}))
 	// Add your /coffees handler as needed, e.g.:
 	// mux.HandleFunc("/coffees", withCORS(CoffeesHandler))
 
